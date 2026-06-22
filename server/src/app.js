@@ -36,13 +36,12 @@ app.use(helmet());
  * In production, restrict CORS_ORIGIN to your known frontend domain(s).
  */
 const corsOptions = {
-  // CLIENT_URL takes priority (Render convention), falls back to CORS_ORIGIN.
   origin: process.env.CLIENT_URL || process.env.CORS_ORIGIN || '*',
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  // Allow pre-flight requests for all routes.
   optionsSuccessStatus: 204,
 };
+
 app.use(cors(corsOptions));
 // Handle preflight OPTIONS requests for all routes.
 app.options('*', cors(corsOptions));
