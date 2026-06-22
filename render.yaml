@@ -1,0 +1,36 @@
+# render.yaml — Render.com deployment configuration
+# Deploy the SessionPulse backend API as a Render Web Service.
+#
+# To use:
+# 1. Push this repo to GitHub.
+# 2. Go to https://dashboard.render.com → New → Blueprint
+# 3. Connect your GitHub repo and Render will auto-detect this file.
+# 4. Set the secret environment variables (MONGO_URI) in the Render dashboard.
+
+services:
+  - type: web
+    name: sessionpulse-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free                    # or 'starter' for production
+    autoDeploy: true
+
+    envVars:
+      # ── Required ────────────────────────────────────────────────────────
+      - key: MONGO_URI
+        sync: false               # Set this manually in the Render dashboard
+
+      # ── Optional ────────────────────────────────────────────────────────
+      - key: NODE_ENV
+        value: production
+
+      - key: PORT
+        value: 5000               # Render overrides this with its own port
+
+      - key: CLIENT_URL
+        sync: false               # Your Vercel frontend URL, e.g. https://sessionpulse.vercel.app
+
+      - key: CORS_ORIGIN
+        sync: false               # Same as CLIENT_URL; set to * for open access
