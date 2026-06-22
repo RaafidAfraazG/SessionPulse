@@ -30,8 +30,9 @@
   // ── Configuration ─────────────────────────────────────────────────────────
 
   /** Default API endpoint. Override with window.SESSIONPULSE_ENDPOINT. */
-  var ENDPOINT =
-    window.SESSIONPULSE_ENDPOINT || 'http://localhost:5000/api/events';
+var ENDPOINT =
+  window.SESSIONPULSE_ENDPOINT ||
+  'https://sessionpulse-api.onrender.com/api/events';
 
   /** localStorage key used to persist the session identifier. */
   var SESSION_KEY = 'sp_session_id';

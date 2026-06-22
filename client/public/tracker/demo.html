@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -42,7 +42,7 @@
         --radius: 12px;
         --radius-sm: 6px;
         --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-        --font: 'Inter', system-ui, sans-serif;
+        --font: "Inter", system-ui, sans-serif;
         --transition: 0.2s ease;
       }
 
@@ -89,8 +89,15 @@
       }
 
       @keyframes pulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50%       { opacity: 0.5; transform: scale(1.4); }
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.4);
+        }
       }
 
       .badge {
@@ -239,7 +246,7 @@
       }
 
       .log-list:empty::after {
-        content: 'No events yet. Click anywhere or wait for the page_view event…';
+        content: "No events yet. Click anywhere or wait for the page_view event…";
         display: block;
         text-align: center;
         color: var(--color-text-muted);
@@ -256,12 +263,18 @@
         font-size: 0.82rem;
         background: var(--color-surface-2);
         animation: slideIn 0.2s ease;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
       }
 
       @keyframes slideIn {
-        from { opacity: 0; transform: translateY(-6px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .log-item .tag {
@@ -375,7 +388,7 @@
         gap: 0.4rem;
         font-size: 0.8rem;
         font-weight: 500;
-        font-family: 'Courier New', monospace;
+        font-family: "Courier New", monospace;
         padding: 0.45rem 0.9rem;
         background: var(--color-surface-2);
         border: 1px solid var(--color-border);
@@ -410,8 +423,12 @@
       }
 
       /* ── Scrollbar ───────────────────────────────────────────────────── */
-      .log-list::-webkit-scrollbar { width: 6px; }
-      .log-list::-webkit-scrollbar-track { background: transparent; }
+      .log-list::-webkit-scrollbar {
+        width: 6px;
+      }
+      .log-list::-webkit-scrollbar-track {
+        background: transparent;
+      }
       .log-list::-webkit-scrollbar-thumb {
         background: var(--color-border);
         border-radius: 3px;
@@ -431,8 +448,16 @@
       }
 
       @keyframes rippleOut {
-        from { width: 10px; height: 10px; opacity: 0.8; }
-        to   { width: 60px; height: 60px; opacity: 0; }
+        from {
+          width: 10px;
+          height: 10px;
+          opacity: 0.8;
+        }
+        to {
+          width: 60px;
+          height: 60px;
+          opacity: 0;
+        }
       }
     </style>
   </head>
@@ -449,13 +474,12 @@
 
     <!-- ── Main Content ─────────────────────────────────────────────────── -->
     <main>
-
       <!-- Hero -->
       <section class="hero">
         <h1>Tracker Test Environment</h1>
         <p>
-          Click anywhere on this page to generate tracking events.
-          All events are sent to your local SessionPulse API.
+          Click anywhere on this page to generate tracking events. All events
+          are sent to your local SessionPulse API.
         </p>
       </section>
 
@@ -517,7 +541,7 @@
           <a
             class="api-link"
             id="link-sessions"
-            href="http://localhost:5000/api/sessions"
+            href="https://sessionpulse-api.onrender.com/api/sessions"
             target="_blank"
             rel="noopener"
           >
@@ -544,7 +568,7 @@
           <a
             class="api-link"
             id="link-health"
-            href="http://localhost:5000/health"
+            href="https://sessionpulse-api.onrender.com/health"
             target="_blank"
             rel="noopener"
           >
@@ -552,81 +576,86 @@
           </a>
         </div>
       </div>
-
     </main>
 
     <!-- ── Footer ───────────────────────────────────────────────────────── -->
     <footer>
       SessionPulse &mdash; Tracker Demo &mdash; Events are sent to
-      <code>http://localhost:5000/api/events</code>
+      <code>https://sessionpulse-api.onrender.com/api/events</code>
     </footer>
 
-    <!-- ── SessionPulse Tracker ─────────────────────────────────────────── -->
-    <!--
-      To override the default endpoint, set window.SESSIONPULSE_ENDPOINT
-      BEFORE including this script:
+    <script>
+      window.SESSIONPULSE_ENDPOINT =
+        "https://sessionpulse-api.onrender.com/api/events";
+    </script>
 
-        <script>
-          window.SESSIONPULSE_ENDPOINT = 'https://your-api.example.com/api/events';
-        </script>
-        <script src="tracking.js"></script>
-    -->
     <script src="tracking.js"></script>
 
     <!-- ── Demo Page Logic ──────────────────────────────────────────────── -->
     <script>
       (function () {
-        'use strict';
+        "use strict";
 
         var eventCount = 0;
-        var zoneCounts = { 'zone-1': 0, 'zone-2': 0, 'zone-3': 0 };
+        var zoneCounts = { "zone-1": 0, "zone-2": 0, "zone-3": 0 };
 
         // ── Populate Session Info ────────────────────────────────────────
         // Wait a tick for SessionPulse to initialise before reading sessionId.
         setTimeout(function () {
           var sp = window.SessionPulse;
           if (sp) {
-            document.getElementById('stat-session-id').textContent = sp.sessionId;
-            document.getElementById('stat-endpoint').textContent =
-              window.SESSIONPULSE_ENDPOINT || 'http://localhost:5000/api/events';
+            document.getElementById("stat-session-id").textContent =
+              sp.sessionId;
+            document.getElementById("stat-endpoint").textContent =
+              window.SESSIONPULSE_ENDPOINT ||
+              "https://sessionpulse-api.onrender.com/api/events";
 
             // Set dynamic API links.
-            document.getElementById('link-session-detail').href =
-              'http://localhost:5000/api/sessions/' + encodeURIComponent(sp.sessionId);
-            document.getElementById('link-heatmap').href =
-              'http://localhost:5000/api/heatmap?page=' +
+            document.getElementById("link-session-detail").href =
+              "https://sessionpulse-api.onrender.com/api/sessions/" +
+              encodeURIComponent(sp.sessionId);
+            document.getElementById("link-heatmap").href =
+              "https://sessionpulse-api.onrender.com/api/heatmap?page=" +
               encodeURIComponent(window.location.href);
           }
 
-          document.getElementById('stat-page-url').textContent =
+          document.getElementById("stat-page-url").textContent =
             window.location.href.length > 35
-              ? window.location.href.substring(0, 35) + '…'
+              ? window.location.href.substring(0, 35) + "…"
               : window.location.href;
         }, 50);
 
         // ── Log an event entry ───────────────────────────────────────────
         function logEvent(type, detail) {
           eventCount++;
-          document.getElementById('stat-events').textContent = eventCount;
+          document.getElementById("stat-events").textContent = eventCount;
 
-          var list = document.getElementById('event-log');
-          var item = document.createElement('li');
-          item.className = 'log-item';
+          var list = document.getElementById("event-log");
+          var item = document.createElement("li");
+          item.className = "log-item";
 
           var now = new Date();
           var timeStr =
-            now.getHours().toString().padStart(2, '0') +
-            ':' +
-            now.getMinutes().toString().padStart(2, '0') +
-            ':' +
-            now.getSeconds().toString().padStart(2, '0') +
-            '.' +
-            now.getMilliseconds().toString().padStart(3, '0');
+            now.getHours().toString().padStart(2, "0") +
+            ":" +
+            now.getMinutes().toString().padStart(2, "0") +
+            ":" +
+            now.getSeconds().toString().padStart(2, "0") +
+            "." +
+            now.getMilliseconds().toString().padStart(3, "0");
 
           item.innerHTML =
-            '<span class="tag tag-' + type + '">' + type + '</span>' +
-            '<span class="log-text">' + detail + '</span>' +
-            '<span class="log-time">' + timeStr + '</span>';
+            '<span class="tag tag-' +
+            type +
+            '">' +
+            type +
+            "</span>" +
+            '<span class="log-text">' +
+            detail +
+            "</span>" +
+            '<span class="log-time">' +
+            timeStr +
+            "</span>";
 
           // Prepend so newest is at the top.
           list.insertBefore(item, list.firstChild);
@@ -639,25 +668,27 @@
 
         // ── Ripple effect ────────────────────────────────────────────────
         function spawnRipple(x, y) {
-          var el = document.createElement('div');
-          el.className = 'ripple';
-          el.style.left = x + 'px';
-          el.style.top = y + 'px';
+          var el = document.createElement("div");
+          el.className = "ripple";
+          el.style.left = x + "px";
+          el.style.top = y + "px";
           document.body.appendChild(el);
-          setTimeout(function () { el.remove(); }, 700);
+          setTimeout(function () {
+            el.remove();
+          }, 700);
         }
 
         // ── Listen to document clicks to update the demo UI ──────────────
-        document.addEventListener('click', function (e) {
-          logEvent('click', 'x: ' + e.clientX + ', y: ' + e.clientY);
+        document.addEventListener("click", function (e) {
+          logEvent("click", "x: " + e.clientX + ", y: " + e.clientY);
           spawnRipple(e.clientX, e.clientY);
 
           // Count clicks per zone.
-          var zone = e.target.closest('.click-zone');
+          var zone = e.target.closest(".click-zone");
           if (zone && zone.id) {
             if (zoneCounts.hasOwnProperty(zone.id)) {
               zoneCounts[zone.id]++;
-              document.getElementById(zone.id + '-count').textContent =
+              document.getElementById(zone.id + "-count").textContent =
                 zoneCounts[zone.id];
             }
           }
@@ -665,16 +696,18 @@
 
         // ── Log the initial page_view ────────────────────────────────────
         // The tracker already sent it; we just mirror it in the UI.
-        logEvent('page_view', window.location.pathname);
+        logEvent("page_view", window.location.pathname);
 
         // ── Clear log ────────────────────────────────────────────────────
-        document.getElementById('clear-btn').addEventListener('click', function (e) {
-          // Don't let this click bubble to the document click handler.
-          e.stopPropagation();
-          document.getElementById('event-log').innerHTML = '';
-          eventCount = 0;
-          document.getElementById('stat-events').textContent = '0';
-        });
+        document
+          .getElementById("clear-btn")
+          .addEventListener("click", function (e) {
+            // Don't let this click bubble to the document click handler.
+            e.stopPropagation();
+            document.getElementById("event-log").innerHTML = "";
+            eventCount = 0;
+            document.getElementById("stat-events").textContent = "0";
+          });
       })();
     </script>
   </body>
