@@ -86,7 +86,7 @@ const HeatmapPage = () => {
         <p className="text-xs text-slate-600 mt-2">
           💡 Tip: Use the exact URL that was tracked, e.g.{' '}
           <code className="text-slate-700 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-xs">
-            http://127.0.0.1:5500/tracker/demo.html
+            https://session-pulse.vercel.app/tracker/demo.html
           </code>
         </p>
       </div>
